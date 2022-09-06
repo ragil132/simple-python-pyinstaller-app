@@ -1,10 +1,11 @@
 node {
-    stage('Build'){
-        docker.image('python:2-alpine').inside {
-            sh 'pwd'
-            sh 'ls'
-            sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-        }
+    withEnv(
+        ['PWD=$(pwd)']) {
+            stage('Build'){
+                docker.image('python:2-alpine').inside {
+                    sh 'python -m py_compile ${PWD}/sources/add2vals.py ${PWD}/sources/calc.py'
+                }
+            }
     }
     stage('Test'){
         try {
