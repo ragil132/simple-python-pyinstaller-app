@@ -1,9 +1,9 @@
 node {
     withEnv(
-        ['PWD=/media/ragillio/7406CA3606C9F8DE/Dicoding_School/jenkins-project/simple-python-pyinstaller-app']) {
+        ['FILE_LOCATION=/media/ragillio/7406CA3606C9F8DE/Dicoding_School/jenkins-project/simple-python-pyinstaller-app']) {
             stage('Build'){
                 docker.image('python:2-alpine').inside {
-                    sh 'python -m py_compile ${PWD}/sources/add2vals.py ${PWD}/sources/calc.py'
+                    sh 'python -m py_compile ${FILE_LOCATION}/sources/add2vals.py ${FILE_LOCATION}/sources/calc.py'
                 }
             }
     }
