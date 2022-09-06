@@ -1,13 +1,16 @@
 node {
     stage('Build'){
         docker.image('python:2-alpine').inside {
-            sh 'python -m py_compile /media/ragillio/7406CA3606C9F8DE/Dicoding_School/jenkins-project/simple-python-pyinstaller-app/sources/add2vals.py /media/ragillio/7406CA3606C9F8DE/Dicoding_School/jenkins-project/simple-python-pyinstaller-app/sources/calc.py'
+            sh 'import os'
+            sh 'cwd = os.getcwd()'
+            sh 'print(cwd)'
+            sh 'python -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
     stage('Test'){
         try {
             docker.image('qnib/pytest').inside {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml /media/ragillio/7406CA3606C9F8DE/Dicoding_School/jenkins-project/simple-python-pyinstaller-app/sources/test_calc.py'
+                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
             }
         }
         catch (e){
@@ -21,7 +24,7 @@ node {
     stage('Deliver'){
         try {
             docker.image('cdrx/pyinstaller-linux:python2').inside {
-                sh 'pyinstaller --onefile /media/ragillio/7406CA3606C9F8DE/Dicoding_School/jenkins-project/simple-python-pyinstaller-app/sources/add2vals.py'
+                sh 'pyinstaller --onefile sources/add2vals.py'
             }
         }
         catch (e){
