@@ -34,7 +34,7 @@ node {
                 throw e
             }
             finally {
-                archiveArtifacts artifacts: '${env.BUILD_ID}/sources/add2vals', followSymlinks: false, onlyIfSuccessful: true
+                archiveArtifacts artifacts: 'dist/add2vals', followSymlinks: false, onlyIfSuccessful: true
                 sh 'docker run --rm -v ${VOLUME} ${IMAGE} \'rm -rf build dist\''
             }
         }
