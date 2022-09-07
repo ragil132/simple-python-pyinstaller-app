@@ -1,6 +1,7 @@
 node {
     stage('Build'){
         docker.image('python:2-alpine').inside {
+            sh 'chmod -R 777 /var/jenkins_home/workspace/submission-cicd-pipeline-ragillio_aji'
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
