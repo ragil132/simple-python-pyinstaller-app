@@ -25,14 +25,10 @@ node {
                     sh 'pyinstaller --onefile sources/add2vals.py'
             }
         }
-
         catch (e){
             echo 'Build Failed'
+            echo e
             throw e
-        }
-
-        finally {
-            archiveArtifacts artifacts: 'dist/add2vals', onlyIfSuccessful: true
         }
     }
 }
