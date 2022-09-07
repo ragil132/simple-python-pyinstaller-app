@@ -22,7 +22,7 @@ node {
     stage('Deliver'){
         try {
             docker.image('cdrx/pyinstaller-linux:python2').inside {
-                dir('env.BUILD_ID') {
+                dir('dist') {
                     unstash 'compiled-results'
                     sh 'pyinstaller -F add2vals.py'
                 }
@@ -35,7 +35,7 @@ node {
         }
 
         finally {
-            archiveArtifacts artifacts: '${env.BUILD_ID}/dist/add2vals'
+            archiveArtifacts artifacts: 'dist/add2vals'
         }
     }
 }
