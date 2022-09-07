@@ -19,9 +19,7 @@ node {
             junit 'test-reports/results.xml'
         }
     }
-    withEnv(
-        ['VOLUME = $(pwd)/sources:/src'
-          'IMAGE = cdrx/pyinstaller-linux:python2']) {
+    withEnv(['VOLUME = \'$(pwd)/sources:/src\'', 'IMAGE = \'cdrx/pyinstaller-linux:python2\'']) {
         stage('Deliver'){
             try {
                 docker.image('cdrx/pyinstaller-linux:python2').inside {
