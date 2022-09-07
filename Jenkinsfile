@@ -37,7 +37,7 @@ node {
                 }
 
             def previousResult = currentBuild.previousBuild?.result
-                if (previousResult != null && previousResult != currentResult) {
+                if (previousResult != null && previousResult != currentResult && currentResult == 'SUCCESS') {
                     archiveArtifacts 'dist/add2vals'
                     echo 'Built Successfully'
                 }
