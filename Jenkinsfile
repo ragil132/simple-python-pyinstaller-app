@@ -1,12 +1,10 @@
 node {
-    withEnv(
-        ['FILE_LOCATION=/var/jenkins_home/simple-python-pyinstaller-app']) {
-            stage('Build'){
-                docker.image('python:2-alpine').inside {
-                    sh 'python -m py_compile ${FILE_LOCATION}/sources/add2vals.py ${FILE_LOCATION}/sources/calc.py'
-                }
-            }
+    stage('Build'){
+        docker.image('python:2-alpine').inside {
+            sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+        }
     }
+    
     stage('Test'){
         try {
             docker.image('qnib/pytest').inside {
