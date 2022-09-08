@@ -19,16 +19,4 @@ node {
             junit 'test-reports/results.xml'
         }
     }
-    stage('Deliver'){
-        try {
-            docker.image('cdrx/pyinstaller-linux:python2').inside {
-                    sh 'pyinstaller --onefile sources/add2vals.py'
-            }
-        }
-        catch (e){
-            echo 'Build Failed'
-            echo e
-            throw e
-        }
-    }
 }
