@@ -28,6 +28,7 @@ node {
         }
         catch (e){
             echo 'Build Failed'
+            echo e
             throw e
         }
         // finally {
