@@ -23,6 +23,7 @@ node {
     stage('Deploy'){
         try {
             docker.image('cdrx/pyinstaller-linux:python2').inside {
+                sh 'docker ps'
                 sh 'pyinstaller --onefile sources/add2vals.py'
             }
         }
