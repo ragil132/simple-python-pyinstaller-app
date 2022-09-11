@@ -20,4 +20,28 @@ node {
             junit 'test-reports/results.xml'
         }
     }
+    stage('Deploy'){
+        try {
+            docker.image('cdrx/pyinstaller-linux:python2').inside {
+                sh 'pyinstaller --onefile sources/add2vals.py'
+            }
+        }
+        catch (e){
+            echo 'Build Failed'
+            throw e
+        }
+        finally {
+            def currentResult = currentBuild.result ?: 'SUCCESS'
+                if (currentResult == 'UNSTABLE') {
+                    archiveArtifacts 'dist/add2vals'
+                    echo 'UNSTABLE BUILD'
+                }
+
+            def previousResult = currentBuild.previousBuild?.result
+                if (previousResult != null && previousResult != currentResult) {
+                    archiveArtifacts 'dist/add2vals'
+                    echo 'Built Successfully'
+                }
+        }
+    }
 }
