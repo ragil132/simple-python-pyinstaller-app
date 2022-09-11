@@ -30,18 +30,18 @@ node {
             echo 'Build Failed'
             throw e
         }
-        finally {
-            def currentResult = currentBuild.result ?: 'SUCCESS'
-                if (currentResult == 'UNSTABLE') {
-                    archiveArtifacts 'dist/add2vals'
-                    echo 'UNSTABLE BUILD'
-                }
+        // finally {
+        //     def currentResult = currentBuild.result ?: 'SUCCESS'
+        //         if (currentResult == 'UNSTABLE') {
+        //             archiveArtifacts 'dist/add2vals'
+        //             echo 'UNSTABLE BUILD'
+        //         }
 
-            def previousResult = currentBuild.previousBuild?.result
-                if (previousResult != null && previousResult != currentResult) {
-                    archiveArtifacts 'dist/add2vals'
-                    echo 'Built Successfully'
-                }
-        }
+        //     def previousResult = currentBuild.previousBuild?.result
+        //         if (previousResult != null && previousResult != currentResult) {
+        //             archiveArtifacts 'dist/add2vals'
+        //             echo 'Built Successfully'
+        //         }
+        // }
     }
 }
