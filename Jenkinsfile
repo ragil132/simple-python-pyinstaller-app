@@ -21,26 +21,20 @@ node {
         }
     }
     stage('Deploy'){
-        try {
-            docker.image('cdrx/pyinstaller-linux:python2').inside {
-                sh 'pyinstaller --onefile sources/add2vals.py'
+        withEnv(['VOLUME = \'$(pwd)/sources:/src\'', 'IMAGE = \'cdrx/pyinstaller-linux:python2\'']) {
+            try {
+                dir('env.BUILD_ID') {
+                    unstash 'compiled-results'
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
+                }
+            }
+            catch (e){
+                echo e
+            }
+            finally {
+                archiveArtifacts '${env.BUILD_ID}/sources/dist/add2vals'
+                sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
             }
         }
-        catch (e){
-            echo e
-        }
-        // finally {
-        //     def currentResult = currentBuild.result ?: 'SUCCESS'
-        //         if (currentResult == 'UNSTABLE') {
-        //             archiveArtifacts 'dist/add2vals'
-        //             echo 'UNSTABLE BUILD'
-        //         }
-
-        //     def previousResult = currentBuild.previousBuild?.result
-        //         if (previousResult != null && previousResult != currentResult) {
-        //             archiveArtifacts 'dist/add2vals'
-        //             echo 'Built Successfully'
-        //         }
-        // }
     }
 }
