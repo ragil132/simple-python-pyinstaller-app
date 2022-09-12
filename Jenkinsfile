@@ -30,7 +30,7 @@ node {
                 echo e
                 throw e
             }
-            input message: 'Ready to deploy? (Choose "Proceed" for approve and "Abort" for cancel)'
+            input 'Ready to deploy? (Choose "Proceed" for approve and "Abort" for cancel)'
             finally {
                 archiveArtifacts 'sources/dist/add2vals'
                 sh 'set -x'
