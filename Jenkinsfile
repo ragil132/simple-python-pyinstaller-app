@@ -30,8 +30,16 @@ node {
                 echo e
                 throw e
             }
+            input message: 'Ready to deploy? (Choose "Proceed" for approve and "Abort" for cancel)'
             finally {
                 archiveArtifacts 'sources/dist/add2vals'
+                sh 'set -x'
+                sh 'sleep 1m'
+                sh "echo '$! > .pidfile'"
+                sh 'set +x'
+                sh "echo 'Lets Try the app'"
+                sh "echo 'move to artifacts tab and download all'"
+                sh "echo 'run ./add2vals 5 10'"
                 sh "docker run --rm -v  /var/jenkins_home/workspace/submission-cicd-pipeline-ragillio_aji/sources:/src cdrx/pyinstaller-linux:python2 'rm -rf build dist'"
             }
     }
