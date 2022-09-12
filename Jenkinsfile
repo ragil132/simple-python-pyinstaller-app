@@ -22,7 +22,7 @@ node {
     }
     stage('Deploy'){
             try {
-                dir('env.BUILD_ID') {
+                dir('dist') {
                     sh "docker run --rm -v /var/jenkins_home/workspace/submission-cicd-pipeline-ragillio_aji/sources:/src cdrx/pyinstaller-linux:python2 'pyinstaller -F add2vals.py'"
                 }
             }
@@ -31,7 +31,7 @@ node {
                 throw e
             }
             finally {
-                archiveArtifacts '${env.BUILD_ID}/sources/dist/add2vals'
+                archiveArtifacts 'dist/add2vals'
                 sh "docker run --rm -v  /var/jenkins_home/workspace/submission-cicd-pipeline-ragillio_aji/sources:/src cdrx/pyinstaller-linux:python2 'rm -rf build dist'"
             }
     }
