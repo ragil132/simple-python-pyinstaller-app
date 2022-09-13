@@ -37,7 +37,7 @@ node {
                 archiveArtifacts 'sources/dist/add2vals'
                 sh 'set -x'
                 sh 'sleep 1m'
-                sh "echo '$! > .pidfile'"
+                sh "echo '${!} > .pidfile'"
                 sh 'set +x'
                 sh "echo 'Lets Try the app'"
                 sh "echo 'move to artifacts tab and download all'"
