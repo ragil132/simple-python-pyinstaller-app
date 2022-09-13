@@ -21,7 +21,7 @@ node {
         }
     }
     stage('Manual Approval'){
-        input 'Ready to deploy? (Choose "Proceed" for approve and "Abort" for cancel)'
+        input 'Lanjutkan ke tahap Deploy?'
     }
     stage('Deploy'){
             try {
