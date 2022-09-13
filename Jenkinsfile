@@ -20,6 +20,9 @@ node {
             junit 'test-reports/results.xml'
         }
     }
+    stage('Manual Approval'){
+        input 'Ready to deploy? (Choose "Proceed" for approve and "Abort" for cancel)'
+    }
     stage('Deploy'){
             try {
                 dir('dist') {
@@ -30,7 +33,6 @@ node {
                 echo e
                 throw e
             }
-            input 'Ready to deploy? (Choose "Proceed" for approve and "Abort" for cancel)'
             finally {
                 archiveArtifacts 'sources/dist/add2vals'
                 sh 'set -x'
