@@ -36,12 +36,12 @@ node {
             finally {
                 archiveArtifacts 'sources/dist/add2vals'
                 sh 'set -x'
+                sh "echo 'Lets Try the app'"
+                sh "echo 'move to artifacts tab and download all'"
+                sh "echo 'open terminal and change to projects folder dist and run ./add2vals 5 10'"
                 sh 'sleep 1m'
                 sh "echo '\$! > .pidfile'"
                 sh 'set +x'
-                sh "echo 'Lets Try the app'"
-                sh "echo 'move to artifacts tab and download all'"
-                sh "echo 'run ./add2vals 5 10'"
                 sh "docker run --rm -v  /var/jenkins_home/workspace/submission-cicd-pipeline-ragillio_aji/sources:/src cdrx/pyinstaller-linux:python2 'rm -rf build dist'"
             }
     }
